@@ -1,0 +1,64 @@
+import java.io.*;
+import java.util.*;
+
+public class demo {
+
+    static node head = null;
+
+    static class node{
+        int data;
+        node next;
+
+        node(int a){
+            this.data= a;
+            this.next=null;
+        }
+    }
+
+    static void insert(int a){
+
+        node newnode = new node(a);
+        int flag=1;
+
+        node h = head, h1=head;
+        while(h!=null){
+            if(h.data==a)
+                flag=0;
+            h=h.next;
+        }
+        if(flag==1){
+            if(head==null)
+                head=newnode;
+            else{
+                while(h1.next!=null){
+                    h1=h1.next;
+                }
+                h1.next=newnode;
+            }
+        }
+    }
+
+
+
+    static void print(node h){
+
+        while(h!=null ){
+            System.out.print(h.data+" ");
+            h=h.next;
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        while(true){
+            int a = sc.nextInt();
+            if(a==-1)   
+                break;
+            insert(a);
+        }
+
+        print(head);
+    }
+}
