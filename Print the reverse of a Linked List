@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+public class demo {
+
+    static node head = null;
+    static node tail = null;
+
+    static class node{
+        int data;
+        node next,prev;
+
+        node(int a){
+            this.data = a;
+            this.next = null;
+            this.prev = null;
+        }
+    }
+
+    static void insert(int a){
+        node newnode = new node(a);
+        if(head == null){
+            head = newnode;
+            tail = newnode;
+        }
+        else{
+            tail.next= newnode;
+            newnode.prev = tail;
+            tail = newnode;
+        }
+    }
+
+
+
+    static void print(node h){
+
+        while(h!=null ){
+            System.out.print(h.data+" ");
+            h=h.prev;
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        while(true){
+            int a = sc.nextInt();
+            if(a==-1)   
+                break;
+            insert(a);
+        }
+
+        print(tail);
+    }
+}
