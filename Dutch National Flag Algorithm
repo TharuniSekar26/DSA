@@ -1,0 +1,90 @@
+You have been given a integer array/list(ARR) of size N. In the array you are only having 0, 1 and 2 elements. Write a function to sort the array using this algorithm.
+
+Input Format
+
+First line of each test case or query contains an integer 'N' representing the size of the first array/list.
+Second line contains 'N' single space separated integers representing the elements in the array/list.
+Constraints
+
+No
+
+Output Format
+
+Return Sorted Array
+
+Sample Input 0
+
+3
+0 1 0
+Sample Output 0
+
+0 0 1
+Sample Input 1
+
+9
+0 0 1 1 2 2 2 0 1
+Sample Output 1
+
+0 0 0 1 1 1 2 2 2
+===================================================
+
+import java.io.*;
+import java.util.*;
+
+class Solution {
+    static void swap(int arr[],int a, int b){
+        int temp = arr[a];
+        arr[a]=arr[b];
+        arr[b]=temp;
+    }
+    static void dutchnatflag(int a[], int arr_size)
+    {
+        int lo = 0;
+        int hi = arr_size - 1;
+        int mid = 0;
+
+        while (mid <= hi) {
+            switch (a[mid]) {        
+                case 0: {
+                    swap(a,lo,mid);
+                    lo++;
+                    mid++;
+                    break;
+                }
+
+                case 1:{
+                    mid++;
+                    break;
+                }
+
+                case 2: {
+                    swap(a,mid,hi);
+                    hi--;
+                    break;
+                }
+            }
+        }
+
+    }
+
+
+    static void printArray(int arr[], int arr_size)
+    {
+        int i;
+        for (i = 0; i < arr_size; i++)
+            System.out.print(arr[i] + " ");
+    }
+
+
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int n =sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        dutchnatflag(arr, n);
+        printArray(arr, n);
+    }
+} 
