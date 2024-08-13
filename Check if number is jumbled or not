@@ -1,0 +1,50 @@
+Write a program to check if a given integer is jumbled or not. A number is said to be Jumbled if for every digit, its neighbours digit differs by max 1.
+
+Input Format
+
+Integer N
+
+Constraints
+
+No
+
+Output Format
+
+true or false
+
+Sample Input 0
+
+1223
+Sample Output 0
+
+true
+Sample Input 1
+
+6767
+Sample Output 1
+
+true
+======================================================
+
+import java.io.*;
+import java.util.*;
+
+public class demo {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int flag=0;
+        while(n>9){
+            int a = ((n/10)%10);
+            int b = n%10;
+            if( Math.abs(a-b)>1)
+                flag=1;
+            n/=10;
+        }
+        if(flag==0)
+            System.out.println("true");
+        else
+            System.out.println("false");
+    }
+}
