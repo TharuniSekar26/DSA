@@ -1,0 +1,94 @@
+Given an integer array nums and an integer k, return the kth largest element in the array.
+
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Input Format
+
+Value represnting size of your array
+Line consists of 'n' space seperated integers representing the values present in the Array
+K value
+Constraints
+
+1 <= k <= nums.length <= 10^5
+Output Format
+
+Kth Largest Element in array
+
+Sample Input 0
+
+8
+1 2 3 4 5 6 7 8
+2
+Sample Output 0
+
+7
+Sample Input 1
+
+9
+3 2 3 1 2 4 5 5 6
+4
+Sample Output 1
+
+4
+
+=============================================================
+
+ import java.io.*;
+import java.util.*;
+
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        return findKthLargestUtil(nums,k,0,nums.length-1);
+    }
+
+    static int findKthLargestUtil(int[] arr, int k,int low,int high){
+
+        int pivotp=getpivot(arr,low,high);
+
+        if(pivotp==arr.length-k) 
+            return arr[pivotp];
+        else if(pivotp<arr.length-k) 
+            return findKthLargestUtil(arr, k, pivotp+1, high);
+        else 
+            return findKthLargestUtil(arr, k, low, pivotp-1);
+
+    }
+
+    static int getpivot(int []arr,int low, int high){
+
+        int pivtelt=arr[high];
+        int pivotp=low;
+
+        for(int i=low;i<=high;i++){
+            if(arr[i]<pivtelt){
+                int temp=arr[i];
+                arr[i]=arr[pivotp];
+                arr[pivotp]=temp;
+                pivotp++;
+            }
+        }
+
+        int tmp=arr[pivotp];
+        arr[pivotp]=arr[high];
+        arr[high]=tmp;
+
+        return pivotp;
+
+    }
+
+
+}
+
+public class demo {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++)
+            arr[i]=sc.nextInt();
+        int k = sc.nextInt();
+        Solution d = new Solution();
+        System.out.println(d.findKthLargest(arr, k));
+    }
+}
