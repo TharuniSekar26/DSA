@@ -1,0 +1,97 @@
+For a given two-dimensional integer array/list of size (N x M), print it in a spiral form. That is, you need to print in the order followed for every iteration:
+a. First row(left to right)
+b. Last column(top to bottom)
+c. Last row(right to left)
+d. First column(bottom to top)
+Mind that every element will be printed only once.
+Input Format
+
+The first line have the M value
+Second line have N value
+Third-line onwards, the next 'N' lines or rows represent the ith row values.
+Each of the ith rows constitutes column values separated by a single space
+Constraints
+
+1 <= t <= 10^2
+0 <= N <= 10^3
+0 <= M <= 10^3
+Time Limit: 1sec
+Output Format
+
+For each test case, print the elements of the two-dimensional array/list in the spiral form in a single line, separated by a single space.
+Sample Input 0
+
+4
+4 
+1 2 3 4 
+5 6 7 8 
+9 10 11 12 
+13 14 15 16
+Sample Output 0
+
+1 2 3 4 8 12 16 15 14 13 9 5 6 7 11 10 
+Sample Input 1
+
+3
+3 
+1 2 3 
+4 5 6 
+7 8 9
+Sample Output 1
+
+1 2 3 6 9 8 7 4 5 
+
+=====================================================================
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static void spiralPrint(int[][] arr){
+        int row = arr.length;
+        int col = arr[0].length;
+        int k=0,l=0,x=0;
+    int last_row=row-1,last_col=col-1;
+    while(x<row*col){
+        for(int i=l;i<=last_col;i++){
+            System.out.print(arr[k][i] + " ");
+            x++;
+        }
+        k++;
+        if(x<row*col)
+        for(int i=k;i<=last_row;i++){
+            System.out.print(arr[i][last_col] + " ");
+            x++;
+        }
+        last_col--;
+        if(x<row*col)
+            for(int i=last_col;i>=l;i--){
+                System.out.print(arr[last_row][i] + " ");
+                x++;
+            }
+            last_row--;
+    if(x<row*col)
+            for(int i=last_row;i>=k;i--){
+                System.out.print(arr[i][l] +" ");
+                x++;
+            }
+            l++;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int row = sc.nextInt();
+        int col = sc.nextInt();
+        int arr[][] = new int[row][col];
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                arr[i][j] = sc.nextInt();
+            }
+        }
+
+        spiralPrint(arr);
+
+    }
+}
+
