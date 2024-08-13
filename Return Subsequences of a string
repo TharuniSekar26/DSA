@@ -1,0 +1,54 @@
+Given a string, please return all the subsequences of that.
+
+Input Format
+
+String Only
+
+Constraints
+
+no
+
+Output Format
+
+Subsequences of string, each subsequence in different line
+
+Sample Input 0
+
+abc
+Sample Output 0
+
+[abc, ab, ac, a, bc, b, c, ]
+Sample Input 1
+
+dd
+Sample Output 1
+
+[dd, d, d, ]
+
+===============================================================
+
+import java.util.*;
+class Solution {
+
+    static List<String> al = new ArrayList<>();
+
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        findsubsequences(s, ""); 
+        System.out.println(al);
+    }
+
+    private static void findsubsequences(String s, String ans)
+    {
+        if (s.length() == 0) {
+            al.add(ans);
+            return;
+        }
+
+        findsubsequences(s.substring(1), ans + s.charAt(0));
+
+        findsubsequences(s.substring(1), ans);
+    }
+}
