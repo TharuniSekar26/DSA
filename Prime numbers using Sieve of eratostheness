@@ -1,0 +1,72 @@
+Given a number n, print all primes smaller than or equal to n. It is also given that n is a small number.
+For example, if n is 10, the output should be “2, 3, 5, 7”. If n is 20, the output should be “2, 3, 5, 7, 11, 13, 17, 19”.
+Input Format
+
+Integer N
+Constraints
+
+no
+Output Format
+
+Print all primes smaller than or equal to n.
+Sample Input 0
+
+30
+Sample Output 0
+
+2 3 5 7 11 13 17 19 23 29
+Sample Input 1
+
+5
+Sample Output 1
+
+2 3 5
+
+==================================================
+
+import java.util.*;
+
+
+public class Solution{
+    static int low =2;
+    public static void simpleSieve(int num,Vector<Integer> prime){
+
+        boolean bool[] = new boolean[num+1];
+        int n;
+
+        n=(num==2)? 2:(int)Math.sqrt(num);
+
+        for (int p=2; p<=n; p++)
+            if (bool[p] == false)
+                for (int i=p*p; i<=num; i+=p)
+                    bool[i] = true;
+
+        for (int p=2; p<=num; p++)
+            if (bool[p] == false)
+                prime.add(p);
+}
+
+
+public static void main(String args[]) {
+
+    Vector<Integer> prime = new Vector<>();
+
+    Scanner sc = new Scanner(System.in);
+
+    int high = sc.nextInt();
+    simpleSieve((int)Math.sqrt(high),prime);
+    int i,j,Ans[]= new int[high-low+1];
+
+    for(i=0;i<Ans.length;i++)
+          Ans[i]=low+i;
+
+    for(i=0;i<prime.size();i++)
+        for(j=0;j<Ans.length;j++)
+            if(Ans[j]%prime.get(i)==0 && Ans[j] != prime.get(i))
+                Ans[j]=0;
+
+    for(j=0;j<Ans.length;j++)
+        if(Ans[j]!=0 && Ans[j] !=1)
+            System.out.print(Ans[j]+" ");
+    }
+}
