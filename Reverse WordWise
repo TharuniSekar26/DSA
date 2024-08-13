@@ -1,0 +1,33 @@
+Sample Input 0
+
+Welcome to Face Prep
+Sample Output 0
+
+emocleW ot ecaF perP
+Sample Input 1
+
+Always indent your code
+Sample Output 1
+
+syawlA tnedni ruoy edoc
+
+=====================================
+
+import java.util.*;
+public class Solution {  
+    public static String reverseWord(String str){  
+        String words[]=str.split("\\s");  
+        String reverseWord="";  
+        for(String w:words){  
+            StringBuilder sb=new StringBuilder(w);  
+            sb.reverse();  
+            reverseWord+=sb.toString()+" ";  
+        }  
+        return reverseWord.trim();  
+    }  
+    public static void main(String[] args) {  
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        System.out.println(reverseWord(str));    
+    }  
+}  
