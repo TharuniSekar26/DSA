@@ -1,0 +1,66 @@
+Given n integers, we need to find size of the largest subset with GCD equal to 1.
+
+Input Format
+
+First line array size
+Second line array elements
+Constraints
+
+No
+
+Output Format
+
+Size of largest subset
+Sample Input 0
+
+3
+2 3 5
+Sample Output 0
+
+3
+Sample Input 1
+
+3
+3 18 12
+Sample Output 1
+
+0
+
+===============================================
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    static int gcd(int a, int b){
+        if(a==0) return b;
+        return gcd(b%a,a);
+    }
+
+    static int largestGCD1Subset(int A[],int n)
+    {
+
+        int currentGCD = A[0];
+
+        for (int i=1; i<n; i++)
+        {
+            currentGCD =gcd(currentGCD, A[i]);
+
+            if (currentGCD == 1)
+                return n;
+        }
+
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++)
+            arr[i]=sc.nextInt();
+
+        System.out.println(largestGCD1Subset(arr, n));
+    }
+}
