@@ -1,0 +1,67 @@
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+Input Format
+
+First line of each test case or query contains an integer 'N' representing the size of the first array/list.
+Second line contains 'N' single space separated integers representing the elements in the array/list.
+Constraints
+
+n == nums.length
+1 <= n <= 5 * 10^4
+-10^9 <= nums[i] <= 10^9
+Output Format
+
+Majority Element value
+Sample Input 0
+
+3
+3 2 3
+Sample Output 0
+
+3
+Sample Input 1
+
+3
+2 1 2
+Sample Output 1
+
+2
+
+
+======================================================================
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int arr[]= new int[n];
+        for (int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for(int i: arr)
+            freqMap.put(i,0);
+
+        for(int i:arr){
+            int freq = freqMap.get(i);
+            freqMap.put(i,++freq);
+        }
+        int max=0,maj=0;
+        for(int i: freqMap.keySet()){
+            if(max<freqMap.get(i)){
+                maj=i;
+                max=freqMap.get(i);
+            }
+        }
+        if(max>n/2)
+            System.out.println(maj);
+    }
+}
+
