@@ -1,0 +1,109 @@
+Given Binary tree Please find the diamater of that tree
+
+Input Format
+
+The first and the only line of input will contain the node data, all separated by a single space. Since -1 is used as an indication whether the left or right node data exist for root, it will not be a part of the node data.
+
+Constraints
+
+Time:- 1 Sec
+
+Output Format
+
+The only line of output prints an integer, representing the diameter of the tree.
+
+Sample Input 0
+
+2 4 5 6 -1 -1 7 20 30 80 90 -1 -1 8 -1 -1 9 -1 -1 -1 -1 -1 -1
+Sample Output 0
+
+8
+Sample Input 1
+
+1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+Sample Output 1
+
+4
+==================================================================================================
+
+import java.io.*;
+import java.util.*;
+
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int data)
+    {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class Solution {
+
+    static Node build(String s[])
+     {
+         if(s[0]=="-1"||s.length==0) return null;
+
+         Node root=new Node(Integer.parseInt(s[0]));
+         Queue<Node> q=new LinkedList<Node>();
+         q.add(root);
+         int i=1;
+         while(!q.isEmpty() && i<s.length)
+         {
+             Node curr=q.poll();
+             String cval=s[i];
+             if(!cval.equals("-1"))
+             {
+                 int h=Integer.parseInt(cval);
+                 curr.left=new Node(h);
+                 q.add(curr.left);
+             }
+              i++;
+             if(i >= s.length)
+              break;
+             cval = s[i];
+             if(!cval.equals("-1"))
+             {
+                 int h=Integer.parseInt(cval);
+                 curr.right=new Node(h);
+                 q.add(curr.right);
+             }
+             i++;
+         }
+         return root;
+     }
+
+
+    public static int diameterOfBinaryTree(Node root) {
+         if(root==null)
+            return 0;
+     int lhigh=height(root.left);
+     int rhigh=height(root.right);
+    int ldiameter=diameterOfBinaryTree(root.left);
+    int rdiameter=diameterOfBinaryTree(root.right);
+    return Math.max(lhigh+rhigh,Math.max(ldiameter, rdiameter));
+    }
+
+    private static int height(Node node) {
+       
+        if(node==null)
+            return 0;
+        return( 1+Math.max(height(node.left),height(node.right)));
+        
+    }
+
+    public static void main(String[] args) 
+    {
+        Scanner sc  = new Scanner(System.in);
+
+        String str[] = sc.nextLine().split(" ");
+
+        Node root = build(str);
+        System.out.println(diameterOfBinaryTree(root));
+
+    }
+}
+
