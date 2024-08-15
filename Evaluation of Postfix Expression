@@ -1,0 +1,83 @@
+You are given with a string, you need to evaluate that string on the basis of postfix expression
+
+Input Format
+
+String S
+
+Constraints
+
+Time:- 1 sec
+
+Output Format
+
+Evaluated postfix expression
+
+Sample Input 0
+
+2 3 1 * + 9 -
+Sample Output 0
+
+-4
+Sample Input 1
+
+5 1 2 + 4 * + 3 -
+Sample Output 1
+
+14
+
+============================================================
+
+import java.util.*;
+class Solution
+{
+  public static int postfix(char []arr)
+  {
+    Stack<Integer> stack=new Stack<>();
+    for(int i=0;i<arr.length;i++)
+    {
+      if(Character.isDigit(arr[i]))
+        stack.push(arr[i]-'0');
+        else
+        {
+          int val1=stack.pop();
+           int val2=stack.pop();
+          switch(arr[i])
+          {
+              
+            case '-':
+              stack.push(val2-val1);
+              break;
+           case '+':
+              stack.push(val2+val1);
+              break;
+            case '*':
+              stack.push(val2*val1);
+              break;
+            case '%':
+              stack.push(val2%val1);
+              break;
+            case '/':
+              stack.push(val2/val1);
+              break;
+          
+        }
+        
+    }}
+    return stack.pop();
+  }
+  public static void main(String args[])
+  {
+    Scanner sc=new Scanner(System.in);
+     String  str=sc.nextLine();
+      String temp[]=str.split(" ");
+      int n=temp.length;
+      char[] arr= new char [n];
+      for(int i=0;i<temp.length;i++)
+          arr[i]=temp[i].charAt(0);     
+    int ans=  postfix(arr);
+      System.out.println(ans);
+      
+    
+   
+  }
+}
