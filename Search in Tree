@@ -1,0 +1,99 @@
+Given a generic tree and an integer x, check if x is present in the given tree or not. Return true if x is present, return false otherwise.
+
+Input Format
+
+The first line of input contains data of the nodes of the tree in level order form. The order is: data for root node, number of children to root node, data of each of child nodes and so on and so forth for each node. The data of the nodes of the tree is separated by space.
+The following line
+Constraints
+
+Tine:- 1 sec
+
+Output Format
+
+The first and only line of output contains true, if x is present and false, otherwise.
+
+Sample Input 0
+
+10 3 20 30 40 2 40 50 0 0 0 0
+40
+Sample Output 0
+
+true
+Sample Input 1
+
+10 3 20 30 40 2 40 50 0 0 0 0
+4
+Sample Output 1
+
+false
+===========================================
+
+import java.util.*;
+public class Main{
+    static class node{
+        int data;
+        List<node> children;
+        node(int data)
+        {
+            this.data=data;
+            this.children=new ArrayList<>();
+        }
+    }
+   static int max=0,pre=0;
+   public static node buildtree(String[] arr)
+   {
+       Queue<node> q=new LinkedList<node>();
+       node root=new node(Integer.parseInt(arr[0]));
+       q.add(root);
+       int i=1;
+       while(!q.isEmpty() && i<arr.length){
+       int child=Integer.parseInt(arr[i++]);
+       node cur=q.poll();
+       for(int j=0;j<child;j++)
+       {
+           
+           node curchild=new node(Integer.parseInt(arr[i++]));
+           cur.children.add(curchild);
+           q.add(curchild);
+       }
+       }
+       return root;
+   }
+   public static Boolean find(node root,int ele )
+   {
+      
+  Queue<node> q=new LinkedList<node>();
+    q.add(root);
+       while(!q.isEmpty())
+       {
+           int n=q.size();
+           while(n>0)
+           {
+               node p=q.poll();  
+               if(p.data==ele)
+               {
+                   
+                   return true;
+               }
+               
+               for(int i=0;i<p.children.size();i++)
+               {
+                   q.add(p.children.get(i));
+               }
+               n--;
+           }
+       }
+       return false;
+   }
+   
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String []arr=sc.nextLine().split(" ");
+       node root=buildtree(arr);
+        int n=sc.nextInt();
+       if(find(root,n))
+       System.out.print("true");
+        else
+            System.out.print("false");
+    }
+}
