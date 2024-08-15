@@ -1,0 +1,93 @@
+You are given the root node of a binary tree.Print its preorder traversal.
+
+Input Format
+
+The first and the only line of input will contain the node data, all separated by a single space. Since -1 is used as an indication whether the left or right node data exist for root, it will not be a part of the node data.
+Constraints
+
+1 <= N <= 10^6
+Where N is the total number of nodes in the binary tree.
+Time Limit: 1 sec
+Output Format
+
+The only line of output prints the preorder traversal of the given binary tree.
+
+Sample Input 0
+
+1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+Sample Output 0
+
+1 2 4 5 3 6 7
+Sample Input 1
+
+5 -1 -1
+Sample Output 1
+
+5
+===================================================================
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    static class node{
+        String data;
+        node left;
+        node right;
+        node( String data)
+        {
+            this.data=data;
+            this.left=null;
+            this.right=null;
+        }
+    }
+public static node buildtree(String[] arr)
+{
+    if(arr[0].equals("-1")||arr.length<1)
+        return null;
+    Queue<node> q=new LinkedList<node>();
+    node root=new node(arr[0]);
+    q.add(root);
+    int i=1;
+    while(!q.isEmpty()&& i<arr.length)
+    {
+        node cur=q.poll();
+        if(!arr[i].equals("-1"))
+        {
+            cur.left=new node(arr[i]);
+            q.add(cur.left);
+        }
+        i++;
+        if(i>=arr.length)
+            break;
+         
+        if(!arr[i].equals("-1"))
+        {
+            cur.right=new node(arr[i]);
+            q.add(cur.right);
+        }
+        i++;
+        
+    }
+    return root;
+    
+}
+    static int count=0;
+    public static void inorder(node root)
+    {
+        
+        if(root==null)
+            return;
+        System.out.print(root.data+" ");
+        inorder(root.left);
+       
+        inorder(root.right);
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String []arr=sc.nextLine().split(" ");
+        node root=buildtree(arr);
+        inorder(root);
+      //  System.out.print(count);
+    }
+}
