@@ -1,0 +1,88 @@
+Convert the given infix expression to postfix .
+Input Format
+
+String having infix expression
+Constraints
+
+no
+
+Output Format
+
+Postfix expression
+
+Sample Input 0
+
+A+B*C+D
+Sample Output 0
+
+ABC*+D+
+Sample Input 1
+
+A+B*C/D-X
+Sample Output 1
+
+ABC*D/+X-
+
+================================================================
+
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    static String ans="";
+    public static void infixtoPost(String s)
+    {
+        char [] arr=s.toCharArray();
+        Stack <Character> sck=new Stack<>();
+        for(int i=0;i<arr.length;i++)
+        {
+            if(Character.isLetterOrDigit(arr[i]))
+                ans+=arr[i];
+            else if(arr[i]=='(')
+                sck.push(arr[i]);
+            else if(arr[i]==')')
+            {
+                while(sck.peek()!='('&& !sck.isEmpty())
+                ans+=sck.pop();
+                    sck.pop();
+            }
+            else{
+            
+                while(!sck.isEmpty() && precedance(arr[i])<=precedance(sck.peek()))
+                   ans+= sck.pop();
+                sck.push(arr[i]);
+                    
+            }
+            
+            
+        }
+        while(!sck.isEmpty())
+            ans+=sck.pop();
+        
+    }
+ 
+    public static int precedance(char i)
+    {
+        switch(i)
+        {
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '%':
+            case '/':
+                return 2;
+            case '^':
+                return 3;
+           
+        }
+        return -1;
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String s=sc.nextLine();
+        infixtoPost(s);
+        System.out.print(ans);
+    }
+}
