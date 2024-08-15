@@ -1,0 +1,83 @@
+Given a generic tree, count and return the number of leaf nodes present in the given tree.
+
+Input Format
+
+The first line of input contains data of the nodes of the tree in level order form. The order is: data for root node, number of children to root node, data of each of child nodes and so on and so forth for each node. The data of the nodes of the tree is separated by space.
+
+Constraints
+
+Time Limit: 1 sec
+
+Output Format
+
+The first and only line of output prints the count of leaf nodes present in the given tree.
+
+Sample Input 0
+
+10 3 20 30 40 2 40 50 0 0 0 0 
+Sample Output 0
+
+4
+Sample Input 1
+
+1 1 2 1 3 1 4 1 5 0
+Sample Output 1
+
+1
+============================================================
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    static class node{
+        int data;
+        List<node> children;
+        node(int data)
+        {
+            this. data=data;
+            this.children=new ArrayList<>();
+        }
+    }
+    static node root=null;
+public static node buildtree(String []arr)
+{
+  node root=new node(Integer.parseInt(arr[0]));
+    Queue<node> q=new LinkedList<>();
+    q.add(root);
+    int i=1;
+    while(!q.isEmpty()&& i<arr.length){
+        
+        node cur=q.poll();
+        int child=Integer.parseInt(arr[i++]);
+        for(int j=0;j<child;j++)
+        {
+           node newnode=new node((Integer.parseInt(arr[i++])));
+            cur.children.add(newnode);
+            q.add(newnode);            
+        }
+        
+    }
+    return root;
+}
+    static int count=0;
+    public static void print(node root)
+    {
+        if(root==null)
+            return;
+        if(root.children.size()==0)
+        count++;
+        for(node child:root.children)
+        {
+            print(child);
+        }
+        
+    }
+    public static void main(String[] args) {
+     Scanner sc=new Scanner(System.in);
+        String[] arr=sc.nextLine().split(" ");
+        node root=buildtree(arr);
+        print(root);
+        System.out.print(count);
+    }
+}
