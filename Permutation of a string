@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    static ArrayList<String> list=new ArrayList<>();
+    static void perm( char[] arr , int f,int n)
+    {
+        if(f==n-1)
+        {
+            list.add(new String(arr));
+            return;
+        }
+        for( int i=f;i<n;i++)
+        {
+            swap(arr,i,f);
+            perm(arr,f+1,n);
+            swap(arr,i,f);
+        }
+    }
+    static void swap(char arr[], int i,int j)
+        
+    {
+        char temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+
+    public static void main(String[] args) {
+    Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        char[]arr=s.toCharArray();
+        perm(arr,0,s.length());
+       // Collections.sort(list);
+        for(String c:list)
+        System.out.println(c);
+    }
+}
+
++=======================================================
+
+Sample Input 0
+
+ab
+Sample Output 0
+
+ab
+ba
+Sample Input 1
+
+ABC
+Sample Output 1
+
+ABC
+ACB
+BAC
+BCA
+CBA
+CAB
