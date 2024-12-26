@@ -1,0 +1,82 @@
+class Node{
+    int val;
+    Node prev;
+    Node next;
+    Node(int val){
+        this.val = val;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class LL{
+    Node head = null;
+    Node tail = null;
+    void insertFront(int val){
+        Node newNode = new Node(val);
+        if(head==null){
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+        newNode.next = head;
+        head.prev = newNode;
+        head = newNode;
+    }
+    
+    void insertLast(int val){
+        Node newNode = new Node(val);
+        if(head==null){
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+        tail.next = newNode;
+        newNode.prev = tail;
+        tail = newNode;
+    }
+    
+    void deleteFront(){
+        head= head.next;
+        head.prev = null;
+    }
+    
+    void deleteLast(){
+        tail = tail.prev;
+        tail.next = null;
+    }
+    void forwardTraveral(){
+        Node temp= head;
+        while(temp!=null){
+            System.out.print(temp.val);
+            temp=temp.next;
+        }
+    }
+    
+    void backwardTraveral(){
+        Node temp= tail;
+        while(temp!=null){
+            System.out.print(temp.val);
+            temp=temp.prev;
+        }
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+		LL l = new LL();
+		l.insertLast(2);
+		l.insertLast(3);
+		l.insertLast(4);
+		l.insertLast(5);
+		l.insertFront(7);
+		
+		l.deleteFront();
+		l.insertLast(6);
+		l.deleteLast();
+		l.forwardTraveral();
+		System.out.println();
+		l.backwardTraveral();
+		
+	}
+}
