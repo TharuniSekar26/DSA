@@ -1,0 +1,50 @@
+class BinaryTree{
+    int[] arr;   
+    int size = 0;
+    BinaryTree(int capacity){
+        arr = new int[capacity];
+    }
+    void insert(int val){
+        arr[size]=val;
+        size++;
+    }
+    void levelOrder(){
+        for(int i=0;i<size;i++){
+            System.out.print(arr[i]);
+        }
+    }
+    
+    int leftChild(int i){
+        return arr[i*2+1];
+    }
+    
+    int rightChild(int i){
+        return arr[i*2+2];
+    }
+    
+    int parent(int i){
+        return arr[(i-1)/2];
+    }
+
+}
+public class Main
+{
+	public static void main(String[] args) {
+        BinaryTree b = new BinaryTree(10);
+        b.insert(4);
+        b.insert(5);
+        b.insert(7);
+        b.insert(2);
+        b.insert(8);
+        b.insert(6);
+        b.insert(10);
+        
+        b.levelOrder();
+        System.out.println();
+        System.out.println(b.parent(6));//parent of 10
+        System.out.println(b.parent(5)); // parent of 6
+        System.out.println(b.leftChild(1));
+        System.out.println(b.rightChild(1));
+        
+	}
+}
