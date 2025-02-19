@@ -1,0 +1,29 @@
+class Example extends Thread{
+    static int count = 0;
+    synchronized void increment(){
+        for(int i=0;i<10000;i++){
+            count++;
+        }
+    }
+    public void run(){
+        increment();
+        System.out.println(count);
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+		Example e = new Example();
+		Example e1 = new Example();
+		e.start();
+		e1.start();
+		try{
+		    e.join();
+		    e1.join();
+		}catch(InterruptedException e){
+		    System.out.print("caught");
+		}
+		System.out.println(Example.count);
+		
+	}
+}
