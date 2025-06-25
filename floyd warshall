@@ -1,0 +1,36 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    int inf = Integer.MAX_VALUE;
+		int[][] arr = {{0,4,inf,5,inf},
+		                {inf,0,1,inf,6},
+		                {2,inf,0,3,inf},
+		                {inf,inf,1,0,2},
+		                {1,inf,inf,4,0}
+		              };
+		
+		int n = 5;
+		for(int medium = 0;medium<n;medium++){
+		    // finding shortest path using all the vertices as medium
+		    for(int i=0;i<n;i++){
+		        for(int j=0;j<n;j++){
+		            //ie., 2->3 = 6 but 2->0 + 0->3 = 4 means, i will update me value
+		            if(arr[i][medium]!=inf && arr[medium][j]!=inf  && 
+		            arr[i][medium]+arr[medium][j]<arr[i][j]){
+		                arr[i][j]=arr[i][medium]+arr[medium][j];
+		            }
+		        }
+		    }
+		}
+		
+		for(int[] a : arr)
+		    System.out.println(Arrays.toString(a));
+	}
+	
+	
+	
+}
+
+
+
