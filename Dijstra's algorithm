@@ -1,0 +1,61 @@
+import java.util.*;
+public class Main
+{
+    static void shortestPath(int[][] graph,int source,int n){
+        
+        int[] dist = new int[n];
+        boolean vis[] = new boolean[n];
+        
+        dist[source]=0;
+        
+        for(int i=0;i<n;i++){
+            if(i!=source)
+                dist[i]=Integer.MAX_VALUE;
+        }
+        
+        for(int i=0;i<n;i++){
+            int u = minVertex(vis,dist); // find min vertex
+            vis[u]=true; // mark it as true 
+            for(int v=0;v<n;v++){ // update all its neighbours
+                if(graph[u][v]!=0 && dist[u]+graph[u][v] < dist[v]){
+                    dist[v]=dist[u]+graph[u][v];
+                }
+            }
+        }
+        
+        for(int i=1;i<n;i++){
+            System.out.println(source + " -> "+i+ " "+ dist[i]);
+        }
+        
+    }
+    
+    static int minVertex(boolean[] vis,int[] dist){
+        int min = Integer.MAX_VALUE;
+        int minVertex = 0;
+        for(int i=0;i<dist.length;i++){
+            if(vis[i]==false && dist[i]<min){
+                min = dist[i];
+                minVertex = i;
+            }
+        }
+        return minVertex;
+    }
+	public static void main(String[] args) {
+	    	Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int e = sc.nextInt();
+	
+		int graph[][] = new int[n][n];
+		for(int i=0;i<e;i++){
+		    int u = sc.nextInt();
+		    int v = sc.nextInt();
+		    int w = sc.nextInt();
+		    
+		    graph[u][v]=w;
+		    graph[v][u]=w;
+		}
+		
+		
+		shortestPath(graph,0,n);
+	}
+}
