@@ -1,0 +1,59 @@
+
+public class Main
+{
+    static void prims(int[][] graph,int source){
+        int n = graph.length;
+        int[] dist = new int[n];
+        int[] parent = new int[n];
+        boolean[] vis = new boolean[n];
+        dist[source]=0;
+        
+        for(int i=0;i<n;i++)
+            if(i!=source)
+                dist[i]=Integer.MAX_VALUE;
+        
+        parent[source]=-1;
+        
+        for(int i=0;i<n;i++){
+            // find the min distance vertex
+            int u = MinVertex(dist,vis);
+            vis[u]=true;
+            // find value for its neighbors
+            for(int v=0;v<n;v++){
+                // neighbor should be not visited value 
+                if(graph[u][v]!=0 && vis[v]==false && graph[u][v]<dist[v]){
+                    dist[v]=graph[u][v];
+                    parent[v]=u;
+                }
+            }
+            
+        }
+        
+        for(int i=0;i<n;i++){
+            if(i!=source)
+                System.out.println(parent[i] + " -> " +i + " "+ dist[i]);   
+        }
+        
+    }
+    
+    static int MinVertex(int[] dist, boolean[] vis){
+        int min = Integer.MAX_VALUE;
+        int minVertex = -1;
+        for(int i=0;i<dist.length;i++){
+            if(vis[i]==false && dist[i]<min){
+                min = dist[i];
+                minVertex = i;
+            }
+        }
+        return minVertex;
+    }
+	public static void main(String[] args) {
+		int graph[][] = {{ 0, 2, 0, 6, 0 },
+                                      { 2, 0, 3, 8, 5 },
+                                      { 0, 3, 0, 0, 7 },
+                                      { 6, 8, 0, 0, 9 },
+                                      { 0, 5, 7, 9, 0 }};
+	    prims(graph,0);
+	    
+	}
+}
