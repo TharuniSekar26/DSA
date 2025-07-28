@@ -17,7 +17,7 @@ public class Main
             int u = minVertex(vis,dist); // find min vertex
             vis[u]=true; // mark it as true 
             for(int v=0;v<n;v++){ // update all its neighbours
-                if(vis[v]==true && graph[u][v]!=0 && dist[u]+graph[u][v] < dist[v]){
+                if(vis[v]==false && graph[u][v]!=0 && dist[u]+graph[u][v] < dist[v]){
                     dist[v]=dist[u]+graph[u][v];
                 }
             }
